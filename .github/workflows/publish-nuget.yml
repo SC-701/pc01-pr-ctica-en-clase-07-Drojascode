@@ -32,6 +32,10 @@ jobs:
         run: |
           cd "Seguridad/Seguridad.MiddlewareAutorizacion"
           dotnet build --configuration Release --no-restore
+          
+      - name: Cleanup old .nupkg files
+        run: |
+            rm -f Seguridadd/Seguridad.MiddlewareAutorizacion/nupkgs/*.nupkg
 
       - name: Empaquetar (dotnet pack)
         run: |
