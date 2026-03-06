@@ -41,11 +41,14 @@ jobs:
         run: |
           cd "Seguridad/Seguridad.MiddlewareAutorizacion"
           dotnet pack --configuration Release --no-build --output ./nupkgs
+          
+       - name: Set up NuGet sources
+        run: dotnet nuget add source "https://nuget.pkg.github.com/SC-701/index.json" --name "github" --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text          
 
       - name: Publicar en GitHub Packages
         run: |
           cd "Seguridad/Seguridad.MiddlewareAutorizacion"
           dotnet nuget push ./nupkgs/*.nupkg \
-            --source "https://github.com/SC-701/pc01-pr-ctica-en-clase-07-Drojascode/index.json" \
+            --source "https://nuget.pkg.github.com/SC-701/index.json" \
             --api-key ${{ secrets.GITHUB_TOKEN }} \
             --skip-duplicate
